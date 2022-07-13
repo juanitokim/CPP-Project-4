@@ -1,36 +1,274 @@
-body {
-    background-color: #2a2b2f; 
-    display: flex; 
-    flex-direction: column;
-    justify-content: center; 
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-weight: 300;
-    color: #fff;
-    text-align:center;
-}
+#include <iostream>
+#include <string>
+#include <iomanip>
 
-.mona-images {
-    max-width: 400px;
-    max-height: 400px;
-    border: 8px solid #fff;
-}
+using namespace std;
 
-.haiku-containers {
-    padding: 10px 0px 20px 0px;
-}
+// phase 1
+void BeginningNarration ();
+void StartingQuestion ();
+char FirstThingToDo (char userInput1);
+void SecondChance (char userInput1);
+// phase 2
+void NarrationEatDogFood ();
+void DogFoodQuestion ();
+char EatDogFoodDecision (char eatDogFood);
+// phase 3
+void NarrationDogAllergy ();
+void DogAllergyQuestion ();
+char AllergyDecision (char dogAllergy);
+// phase 4
+void NameTheDog ();
+void NameOfBerries ();
+void NarrationNumBerries ();
+int NumOfBerries (int berryNum);
 
-.haikus {
-    font-size: 18px;
-    white-space: pre-wrap;
-}
 
-@media only screen and (max-width: 600px) {
-    .june-images {
-        max-width: 340px;
-        max-height: 340px;
+int main() {
+  char userInput1 = ' ';
+  char secondChance = ' ';
+  char eatDogFood = ' ';
+  char dogAllergy = ' ';
+  string nameOfDog;
+  string nameOfBerry;
+  int numBerryEachDay = 0;
+
+  // starting the gamex
+  BeginningNarration();
+  StartingQuestion();
+  cin >> userInput1;
+  
+  // if the user chose an unwise choice, we can give them one more chance. If they refuse, END GAME
+  if (FirstThingToDo(userInput1) == 'b') {
+    SecondChance(userInput1);
+    
+    return 0;
+  }
+
+ //  They found dog food and now have to decide if you would eat it or not
+  NarrationEatDogFood ();
+  DogFoodQuestion ();
+  cin >> eatDogFood;
+  if (EatDogFoodDecision(eatDogFood) == 'b') {    
+    return 0;
+  }
+
+  // random dog appears. Do you have allergies?
+  NarrationDogAllergy ();
+  DogAllergyQuestion ();
+  cin >> dogAllergy;
+  if (AllergyDecision(dogAllergy) == 'a') {    
+    return 0;
+  }
+
+  // name the dog
+  NameTheDog();
+  cin.ignore();
+  getline(cin, nameOfDog);
+  // favorite berry. I'm being merciful that you can have your fav berries
+  NameOfBerries ();
+  getline(cin, nameOfBerry);
+
+  //decide how many berries you will take everyday
+  NarrationNumBerries ();
+  cin >> numBerryEachDay;
+  
+//  NumOfBerries (numBerryEachDay);
+  if (isalpha(numBerryEachDay) == true) {
+    while (numBerryEachDay > 100 || isalpha(numBerryEachDay)) {
+      if (isalpha(numBerryEachDay)) {
+        cout << endl;
+        cout << "Type number only." << endl;
+      }
+      else if (numBerryEachDay > 100) {
+        cout << endl;
+        cout << "Be Wise" << endl;
+      }
+      else if (numBerryEachDay <= 100) {
+      break;
+      }
     }
+  }
 
-    .haikus {
-        font-size: 22px;
+
+
+
+
+
+  
+  cout << endl;
+  cout << "THE END" << endl;
+
+  return 0;
+}
+
+// phase 1
+void BeginningNarration () {
+  cout << "You fell asleep in your business class seat of an airline." << endl;
+  cout << "Then when you opened your eyes, you found yourself on a shore." << endl;
+  cout << "You are confused because you were on your way to an important business trip." << endl;
+  cout << "You look around and recognized parts of planes and some luggage." << endl;
+  cout << "You look around to find no one. Seems like you're alone." << endl;
+  }
+
+void StartingQuestion () {
+  cout << endl;
+  cout << "What do you do first? (choose a or b)" << endl;
+  cout << "a. Walk around and see if you can find anything or anyone." << endl;
+  cout << "b. Give up. I don't have the skills nor power to survive this mass." << endl;
+}
+
+char FirstThingToDo (char userInput1) {
+  while(userInput1 != 'b'|| userInput1 != 'a') {
+    if (userInput1 == 'a') {
+      cout << endl;
+      cout << "You start walking around the beach to find anything that could be useful for your survival." << endl;
+     break;
     }
+    else if (userInput1 == 'b') {
+      cout << endl;
+      cout << "You just sit in a shadow hoping that someone would find you, but no one comes." << endl;
+      break;
+    }
+    else {
+      cout << endl;
+      cout << "Wrong answer. Type a or b." << endl;
+      StartingQuestion();
+      cin >> userInput1;
+    }    
+  }
+  return userInput1;
+}
+
+void SecondChance (char userInput1) {
+  char secondChance = 'c';
+  cout << endl;
+  cout << "You start to feel cold." << endl;
+  cout << "a) Let's go find something to keep you warm." << endl;
+  cout << "b) Nah. I don't want to leave the area because someone might be looking for me." << endl;
+  cout << endl;
+  cout << "What is your choice?: ";
+  cin >> secondChance;
+
+  if (secondChance == 'b') {
+    cout << "You fell asleep and froze. RIP." << endl;
+    cout << "THE END" << endl;
+   }
+}
+// phase 2
+void NarrationEatDogFood () {
+  cout << endl;
+  cout << "You found some clothes, books, a water bottle, some dog food, a lighter, and a knife." << endl;
+  cout << "It's getting dark so you started a fire with books and a lighter around airplane pieces where you can cover yourself." << endl;
+  cout << "You brought some firewoods to stay warm tonight." << endl;
+}
+
+void DogFoodQuestion () {
+  cout << endl;
+  cout << "Now you're hungry." << endl;
+  cout << "a) Eat the dog food you found since it's getting dark." << endl;
+  cout << "b) I can't eat dog food. I'm gonna go into the woods." << endl;
+}
+
+char EatDogFoodDecision (char eatDogFood) {
+  while (eatDogFood != 'a' || eatDogFood != 'b') {
+    if (eatDogFood == 'a') {
+      cout << endl;
+      cout << "You ate well and you woke up the next day safe." << endl;
+      
+      break;
+    }
+    else if (eatDogFood == 'b') {
+      cout << endl;
+      cout << "You go out to the woods and find some mushrooms that look edible." << endl;
+      cout << "Because you are so exhausted and tired your mind isn't straight." << endl;
+      cout << "You eat them because you are super hungry, but then it turns out it was a poisoned mushroom so you die. " << endl;
+      cout << endl;
+      cout << "THE END" << endl;
+      
+      break;      
+    }
+    else {
+      cout << endl;
+      cout << "Wrong answer. Type a or b." << endl;
+      DogFoodQuestion();
+      cin >> eatDogFood;
+    }
+  }
+
+  return eatDogFood;
+}
+// phase 3
+void NarrationDogAllergy () {
+  cout << endl;
+  cout << "You have no idea where it came from," << endl;
+  cout << "but a dog that seems to be raised by someone was sleeping next to you keeping you warm." << endl;
+  cout << "It's a golden retriever." << endl;
+  cout << "You suddenly realize why there were dog foods came from." << endl;
+}
+
+void DogAllergyQuestion () {
+  cout << "a) I have a dog hair allergy" << endl;
+  cout << "b) I love dogs and I don't have allergies" << endl;
+}
+
+char AllergyDecision (char dogAllergy) {
+  while (dogAllergy != 'a' || dogAllergy != 'b') {
+    if (dogAllergy == 'a') {
+      cout << endl;
+      cout << "Your allergy is severe and you start to feel your throat getting swollen." << endl;
+      cout << "You are out of breath and faint, never to breathe again." << endl;
+      cout << endl;
+      cout << "THE END" << endl;
+      break;
+    }
+    else if (dogAllergy == 'b') {
+      break;      
+    }
+    else {
+      cout << endl;
+      cout << "Wrong answer. Type a or b." << endl;
+      DogAllergyQuestion();
+      cin >> dogAllergy;
+    }
+  }
+  return dogAllergy;
+}
+// phase 4
+void NameTheDog () {
+  cout << endl;
+  cout << "Since you love dogs, you will give the dog a name" << endl;
+  cout << "What will you name him?" << endl;
+}
+
+void NameOfBerries () {
+  cout << endl;
+  cout << "You decide to explore the woods with your new dog" << endl;
+  cout << "You found a freshwater font." << endl;
+  cout << "Then, as you were looking for some food, you find some wild berries to eat." << endl;
+  cout << "What's the name of the berry?" << endl;
+}
+
+void NarrationNumBerries () {
+  cout << endl;
+  cout << "You at first thought of grabbing as much as you can." << endl;
+  cout << "However, you remembered that berries rotten fast" << endl;
+  cout << "So you have to decide how many berries you'd take each day." << endl;
+  cout << endl;
+  cout << "How many berries will you eact each day?" << endl;
+}
+
+int NumOfBerries (int berryNum) {
+  while (berryNum > 100) {
+    if (berryNum <= 100 && !isalpha(berryNum)) {
+      break;
+    }
+    else if (berryNum > 100 || isalpha(berryNum)) {
+      cout << "Be Wise" << endl;
+      cout << endl;
+      cout << "How many berries will you eact each day?" << endl;
+      cin >> berryNum;
+    }
+  }
+  return berryNum;
 }
